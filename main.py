@@ -6,7 +6,7 @@ import os
 import re
 import threading
 import pytube as pt
-from pydub import AudioSegment as pd
+from pydub import AudioSegment as pds
 
 class MainWindow(QMainWindow):
     def validateDirectory(self, path):
@@ -25,8 +25,11 @@ class MainWindow(QMainWindow):
         self.directoryText = self.validateDirectory(self.findChild(QPlainTextEdit, "DirectoryText").toPlainText)
         self.format = self.findChild(QComboBox, "Format")
         self.downloadButton = self.findChild(QPushButton, "DownloadButton")
-        self.downloadButton.clicked.connect(lambda : downloading.download(self.downloadText.toPlainText(), self.directoryText, self.format.currentText(), os, re, threading, pt, pd))
+        self.downloadButton.clicked.connect(lambda : downloading.download(self.downloadText.toPlainText(), self.directoryText, self.format.currentText(), os, re, threading, pt, pds))
         self.show()
-app = QApplication(sys.argv)
-UIWindow = MainWindow()
-app.exec()
+if __name__ == "__main__":
+    downloading.setImports(os, re, threading, pt, pds)
+    
+    app = QApplication(sys.argv)
+    UIWindow = MainWindow()
+    app.exec()
