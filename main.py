@@ -24,8 +24,9 @@ class MainWindow(QMainWindow):
         self.downloadText = self.findChild(QPlainTextEdit, "DownloadText")
         self.directoryText = self.validateDirectory(self.findChild(QPlainTextEdit, "DirectoryText").toPlainText)
         self.format = self.findChild(QComboBox, "Format")
+        self.infoLabel = self.findChild(QLabel, "InfoLabel")
         self.downloadButton = self.findChild(QPushButton, "DownloadButton")
-        self.downloadButton.clicked.connect(lambda : downloading.download(self.downloadText.toPlainText(), self.directoryText, self.format.currentText(), os, re, threading, pt, pds))
+        self.downloadButton.clicked.connect(lambda : downloading.download(self.downloadText.toPlainText(), self.directoryText, self.format.currentText(), self.infoLabel))
         self.show()
 if __name__ == "__main__":
     downloading.setImports(os, re, threading, pt, pds)
