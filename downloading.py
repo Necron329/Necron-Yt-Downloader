@@ -16,8 +16,8 @@ def setImports(os_lib, re_lib, threading_lib, pt_lib, pd_lib):
 def validateDirectory(path):
     path = str(path)
     if os.path.exists(path) and os.path.isdir(path):
-        if path[-1] != "\\":
-            path += "\\"
+        if path[-1] != "/":
+            path += "/"
         return path
     else:
         return os.path.join(os.path.expanduser('~'), 'Downloads\\')
