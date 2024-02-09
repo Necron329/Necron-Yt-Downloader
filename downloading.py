@@ -13,6 +13,15 @@ def setImports(os_lib, re_lib, threading_lib, pt_lib, pd_lib):
     pt = pt_lib
     pd = pd_lib
 
+def validateDirectory(path):
+    path = str(path)
+    if os.path.exists(path) and os.path.isdir(path):
+        if path[-1] != "\\":
+            path += "\\"
+        return path
+    else:
+        return os.path.join(os.path.expanduser('~'), 'Downloads\\')
+
 def transformToMp3(title, path):
         audio = pd.from_file(f"{path}{title}.mp4", format="mp4")
         audio.export(f"{path}{title}.mp3", format="mp3")
@@ -71,6 +80,7 @@ def downloadThread(link, path, format, infoLabel):
 def download(link, path, format, infoLabel):
     global downloadInProgress
     link = defineTypeOfLink(link, pt)
+    path = validateDirectory(path.toPlainText())
     if link is not None and downloadInProgress == False:
         downloadInProgress = True
         thread = threading.Thread(target=downloadThread, args=(link,path,format, infoLabel,))
