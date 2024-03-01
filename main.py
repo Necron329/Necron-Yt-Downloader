@@ -6,13 +6,11 @@ import os
 import re
 import threading
 import pytube as pt
-from pydub import AudioSegment as pd
+import subprocess as sp
 
 
 #global variables
 downloadInProgress = False
-
-
 
 def validateDirectory(path):
     path = str(path)
@@ -21,12 +19,12 @@ def validateDirectory(path):
             path += "/"
         return path
     else:
-        return os.path.join(os.path.expanduser('~'), 'Downloads\\')
+        return os.path.join(os.path.expanduser('~'), 'Downloads/')
 
 def transformToMp3(title, path):
-        audio = pd.from_file(f"{path}{title}.mp4", format="mp4")
-        audio.export(f"{path}{title}.mp3", format="mp3")
         if os.path.exists(f"{path}{title}.mp4"):
+            command = ['ffmpeg', '-i', f'{path}{title}.mp4', f'{path}{title}.mp3']
+            sp.run(command, creationflags=sp.CREATE_NO_WINDOW)
             os.remove(f"{path}{title}.mp4")
 
 def validateName(title):
