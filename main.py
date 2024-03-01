@@ -8,7 +8,6 @@ import threading
 import pytube as pt
 import subprocess as sp
 
-
 #global variables
 downloadInProgress = False
 
